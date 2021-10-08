@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group">
                             <label>CIF Tutarı</label>
-                            <input id="cif" type="number" class="form-control" placeholder="CIF tutarı">
+                            <input id="cif" disabled type="number" class="form-control" placeholder="CIF tutarı">
                         </div>
                         <div class="form-group">
                             <label>Damga Vergisi</label>
@@ -121,7 +121,6 @@ $('form').on('keyup',function (){
     let faturatutari=parseFloat($('#faturatutari').val());
     let nakliye=parseFloat($('#nakliye').val());
     let sigorta=parseFloat($('#sigorta').val());
-    let cif = parseFloat($('#cif').val());
     let ardiye=parseFloat($('#ardiye').val());
     let pul=parseFloat($('#pul').val());
     let bankakomisyon=parseFloat($('#bankakomisyon').val());
@@ -132,10 +131,6 @@ $('form').on('keyup',function (){
     let emy=parseFloat($('#emy').val());
     let igv=parseFloat($('#igv').val());
     let kkdf=parseFloat($('#kkdf').val());
-
-    if (!cif){
-        cif=0;
-    }
 
     if (!kdv){
         kdv=0;
@@ -181,6 +176,9 @@ $('form').on('keyup',function (){
         kkdf=0;
     }
 
+    let malbedeli=faturatutari*dovizkuru;
+    let cif=malbedeli+nakliye+sigorta;
+    $('#cif').val(cif.toFixed(2));
 
     let r17=(cif/100)*gumrukvergisi;
     let r18=(cif/100)*emy;
@@ -196,7 +194,6 @@ $('form').on('keyup',function (){
     $('#emy_text').text(r18.toFixed(2));
     $('#igv_text').text(r19.toFixed(2));
     $('#otv_text').text(r20.toFixed(2));
-    let malbedeli=faturatutari*dovizkuru;
     $('#malbedeli').val(malbedeli.toFixed(2));
     let vergiler_toplam=r17+r18+r19+r20+damgavergisi;
     $('#vergiler_toplam').text(vergiler_toplam.toFixed(2));
