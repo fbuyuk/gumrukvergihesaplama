@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gümrük Hesaplama</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./custom.css">
+</head>
+<body class="bg-dark">
+<div class="form-bg mt-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-container">
+                    <h3 class="title">Gümrük Vergisi Hesapla</h3>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label>Fatura Tutarı</label>
+                            <input id="faturatutari" type="number" class="form-control" placeholder="Fatura tutarı">
+                        </div>
+                        <div class="form-group">
+                            <label>Döviz Kuru</label>
+                            <input id="dovizkuru" type="number" class="form-control" placeholder="Döviz Kuru">
+                        </div>
+                        <div class="form-group">
+                            <label>CIF Tutarı</label>
+                            <input id="cif" type="number" class="form-control" placeholder="CIF tutarı">
+                        </div>
+                        <div class="form-group">
+                            <label>Ardiye</label>
+                            <input id="ardiye" type="number" class="form-control" placeholder="Ardiye">
+                        </div>
+                        <div class="form-group">
+                            <label>Sigorta</label>
+                            <input id="sigorta" type="number" class="form-control" placeholder="Sigorta">
+                        </div>
+                        <div class="form-group">
+                            <label>Nakliye</label>
+                            <input id="nakliye" type="number" class="form-control" placeholder="Nakliye">
+                        </div>
+                        <div class="form-group">
+                            <label>Pul Ordino Diğer</label>
+                            <input id="pul" type="number" class="form-control" placeholder="Pul Ordino Diğer">
+                        </div>
+                        <div class="form-group">
+                            <label>Banka Komisyon</label>
+                            <input id="bankakomisyon" type="number" class="form-control" placeholder="Banka Komisyon">
+                        </div>
+                        <div class="form-group">
+                            <label>Gümrük Vergisi(%)</label>
+                            <input id="gumrukvergisi" type="number" class="form-control" placeholder="Gümrük Vergisi">
+                        </div>
+                        <div class="form-group">
+                            <label>KDV(%)</label>
+                            <input id="kdv" type="number" class="form-control" placeholder="KDV">
+                        </div>
+                        <div class="form-group">
+                            <label>ÖTV(%)</label>
+                            <input id="otv" type="number" class="form-control" placeholder="ÖTV">
+                        </div>
+                        <div class="form-group">
+                            <label>EMY(%)</label>
+                            <input id="emy" type="number" class="form-control" placeholder="EMY">
+                        </div>
+                        <div class="form-group">
+                            <label>İGV(%)</label>
+                            <input id="igv" type="number" class="form-control" placeholder="İGV">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="offset-md-7 col-md-4 col-sm-6 position-fixed d-none d-md-block">
+                <div class="pricingTable">
+                    <div class="pricingTable-header">
+                        <div class="price-value">
+                            <span id="toplam_maliyet" class="amount">NaN</span>
+                            <span class="duration">/toplam</span>
+                        </div>
+                    </div>
+                    <div class="pricing-content">
+                        <ul>
+                            <li class="d-flex justify-content-between align-items-center">KDV<span id="kdv_text" class="badge rounded-pill">NaN</span></li>
+                            <li class="d-flex justify-content-between align-items-center">Gümrük Vergisi<span id="gumruk_text" class="badge rounded-pill">NaN</span></li>
+                            <li class="d-flex justify-content-between align-items-center">EMY<span id="emy_text" class="badge rounded-pill">NaN</span></li>
+                            <li class="d-flex justify-content-between align-items-center">İGV<span id="igv_text" class="badge rounded-pill">NaN</span></li>
+                            <li class="d-flex justify-content-between align-items-center">ÖTV<span id="otv_text" class="badge rounded-pill">NaN</span></li>
+                            <li class="d-flex justify-content-between align-items-center">Damga Vergisi<span class="badge rounded-pill">129,80</span></li>
+                            <li class="d-flex justify-content-between align-items-center">Vergiler Toplam<span id="vergiler_toplam" class="badge rounded-pill">NaN</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$('form').on('keyup',function (){
+    let faturatutari=parseFloat($('#faturatutari').val());
+    let nakliye=parseFloat($('#nakliye').val());
+    let sigorta=parseFloat($('#sigorta').val());
+    let cif = parseFloat($('#cif').val());
+    let ardiye=parseFloat($('#ardiye').val());
+    let pul=parseFloat($('#pul').val());
+    let bankakomisyon=parseFloat($('#bankakomisyon').val());
+    let dovizkuru=parseFloat($('#dovizkuru').val());
+    let gumrukvergisi=parseFloat($('#gumrukvergisi').val());
+    let kdv=parseFloat($('#kdv').val());
+    let otv=parseFloat($('#otv').val());
+    let emy=parseFloat($('#emy').val());
+    let igv=parseFloat($('#igv').val());
+
+
+    let r17=cif/100*gumrukvergisi;
+    let r18=cif/100*emy;
+    let r19=cif/100*igv;
+    let r20=cif/100*otv;
+    let damgavergisi=129.80;
+    let r25=faturatutari/100*kdv;
+    let r26=cif+r17+r18+r19+r20+damgavergisi+ardiye+pul+bankakomisyon+r25
+
+    let r28=r26/100*kdv;
+    $('#kdv_text').text(r28.toFixed(2));
+    $('#gumruk_text').text(r17.toFixed(2));
+    $('#emy_text').text(r18.toFixed(2));
+    $('#igv_text').text(r19.toFixed(2));
+    $('#otv_text').text(r20.toFixed(2));
+    let vergiler_toplam=r17+r18+r19+r20+damgavergisi;
+    $('#vergiler_toplam').text(vergiler_toplam.toFixed(2));
+    let maliyet_toplam=(faturatutari*dovizkuru)+nakliye+sigorta+damgavergisi+ardiye+pul+bankakomisyon+vergiler_toplam;
+    $('#toplam_maliyet').text(maliyet_toplam.toFixed(2));
+});
+</script>
+</body>
+</html>
