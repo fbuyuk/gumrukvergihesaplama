@@ -219,3 +219,29 @@
 .form-group{
     margin-bottom: 5px!important;
 }
+
+table,ul,.list-group-item{
+    background-color: #273980;
+}
+
+.list-group-item{
+    color: white;
+    border-color: white;
+}
+
+table input{
+    width: 100%;
+}
+
+table tr td:first-child{
+    text-align: left;
+    vertical-align: middle;
+    color: white;
+}
+
+table tr td:nth-child(2){
+    vertical-align: middle;
+    color: white;
+    text-align: center;
+}
+
